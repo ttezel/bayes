@@ -1,0 +1,22 @@
+{
+    "name": "judge"
+  , "description": "Want to know what a piece of text is about? Ask judge."
+  , "version": "0.0.0"
+  , "author": "Tolga Tezel"
+  , "keywords": [  ]
+  , "dependencies": { 
+
+    }
+  , "devDependencies": {
+      "mocha": ">=0.8.1"
+  }
+  , "engines": { "node": ">=0.8.0" }
+  , "main": "./lib/judge"
+  , "repository": {
+        "type": "git"
+      , "url": "http://github.com/ttezel/judge.git"
+    }
+  , "scripts": {
+      "test": "mocha -t 30000 -R spec"
+    }
+}
