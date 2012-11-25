@@ -41,6 +41,20 @@ classifier.categorize('awesome, cool, amazing!! Yay.')
 
 ```
 
+##API
+
+###`judge.naiveBayes()`
+
+Returns an instance of a Naive-Bayes Classifier.
+
+###`classifier.learn(text, category)`
+
+Teach your classifier what `category` the `text` belongs to. The more you teach your classifier, the more reliable it becomes. It will use what it has learned to identify new documents that it hasn't seen before.
+
+###`classifier.categorize(text)`
+
+Returns the category it thinks `text` belongs to. Its judgement is based on what you have taught it with `classifier.learn()`.
+
 ## License 
 
 (The MIT License)
