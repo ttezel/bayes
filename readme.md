@@ -1,7 +1,6 @@
-#Text classifier for node.js
+#`judge`: A text classifier for node.js
 
-`judge` is a collection of Document Classifiers. You give it a document (piece of text), and it tells you the category that document belongs to.
-
+###`judge` takes a document (piece of text), and it tells you the category that document belongs to.
 
 ###What can I use this for?
 
