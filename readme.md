@@ -1,5 +1,47 @@
 #Text classifier for node.js
 
+`judge` is a collection of Document Classifiers. You give it a document (piece of text), and it tells you the category that document belongs to.
+
+
+###What can I use this for?
+
+You can use this for categorizing any text content into a set of **categories**. For example:
+
+- is an email **spam**, or **not spam** ?
+- is a news article about **technology**, **politics**, or **sports** ?
+- is a piece of text expressing **positive** emotions, or **negative** emotions?
+
+##Installing
+
+```
+npm install judge
+```
+
+##Usage
+
+###Using the Naive-Bayes Classifier
+
+```javascript
+var judge = require('judge')
+
+var classifier = judge.naiveBayes()
+
+//teach it positive phrases
+
+classifier.learn('amazing, awesome movie!! Yeah!! Oh boy.', 'positive')
+classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
+
+//teach it a negative phrase
+
+classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
+
+//now ask it to categorize a document it has never seen before
+
+classifier.categorize('awesome, cool, amazing!! Yay.')
+// => 'positive'
+
+```
+
 ## License 
 
 (The MIT License)

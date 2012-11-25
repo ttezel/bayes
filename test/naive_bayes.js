@@ -11,11 +11,11 @@ describe('naive bayes classifier', function () {
     var classifier = judge.naiveBayes()
 
     //teach it positive phrases
-    classifier.learn('amazing, awesome movie!! Yeah!! Oh boy.', 'positive')
+    classifier.learn('amazing, awesome movie!! Yeah!!', 'positive')
     classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
 
     //teach it a negative phrase
-    classifier.learn('terrible, shitty thing. Damn. Sucks!! Damn.', 'negative')
+    classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
 
     //teach it a neutral phrase
     classifier.learn('I dont really know what to make of this.', 'neutral')
@@ -27,7 +27,7 @@ describe('naive bayes classifier', function () {
 
   //topic analysis test
   it('categorizes correctly for `chinese` and `japanese` categories', function (done) {
-    
+
     var classifier = judge.naiveBayes()
 
     //teach it how to identify the `chinese` category
