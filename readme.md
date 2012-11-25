@@ -1,10 +1,11 @@
 #`judge`: A text classifier for node.js
 
+
 `judge` takes a document (piece of text), and it tells you the category that document belongs to.
 
-###What can I use this for?
+##What can I use this for?
 
-You can use this for categorizing any text content into a set of **categories**. For example:
+You can use this for categorizing any text content into any arbitrary set of **categories**. For example:
 
 - is an email **spam**, or **not spam** ?
 - is a news article about **technology**, **politics**, or **sports** ?
