@@ -3,7 +3,7 @@
   , "description": "Naive Bayes Classifier for node.js"
   , "version": "0.0.2"
   , "author": "Tolga Tezel"
-  , "keywords": [ "naive-bayes", "categorize", "classify" ]
+  , "keywords": [ "naive", "bayes", "categorize", "classify", "classifier" ]
   , "dependencies": { 
 
     }
@@ -11,10 +11,10 @@
       "mocha": ">=0.8.1"
   }
   , "engines": { "node": ">=0.8.0" }
-  , "main": "./lib/judge"
+  , "main": "./lib/naive_bayes"
   , "repository": {
         "type": "git"
-      , "url": "http://github.com/ttezel/judge.git"
+      , "url": "http://github.com/ttezel/bayes.git"
     }
   , "scripts": {
       "test": "mocha -t 30000 -R spec"
