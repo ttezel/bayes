@@ -1,14 +1,14 @@
 var assert = require('assert')
   , fs = require('fs')
   , path = require('path')
-  , judge = require('../lib/judge')
+  , bayes = require('../lib/naive_bayes')
 
 describe('naive bayes classifier', function () {
 
   //sentiment analysis test
   it('categorizes correctly for `positive` and `negative` categories', function (done) {
 
-    var classifier = judge.naiveBayes()
+    var classifier = bayes()
 
     //teach it positive phrases
     classifier.learn('amazing, awesome movie!! Yeah!!', 'positive')
@@ -28,7 +28,7 @@ describe('naive bayes classifier', function () {
   //topic analysis test
   it('categorizes correctly for `chinese` and `japanese` categories', function (done) {
 
-    var classifier = judge.naiveBayes()
+    var classifier = bayes()
 
     //teach it how to identify the `chinese` category
     classifier.learn('Chinese Beijing Chinese', 'chinese')
