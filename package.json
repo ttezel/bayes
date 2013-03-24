@@ -1,9 +1,9 @@
 {
-    "name": "judge"
-  , "description": "Want to know what a piece of text is about? Ask judge."
-  , "version": "0.0.0"
+    "name": "bayes"
+  , "description": "Naive Bayes Classifier for node.js"
+  , "version": "0.0.2"
   , "author": "Tolga Tezel"
-  , "keywords": [  ]
+  , "keywords": [ "naive-bayes", "categorize", "classify" ]
   , "dependencies": { 
 
     }
