@@ -19,23 +19,21 @@ npm install bayes
 
 ##Usage
 
-###Using the Naive-Bayes Classifier
-
 ```javascript
 var bayes = require('bayes')
 
 var classifier = bayes()
 
-//teach it positive phrases
+// teach it positive phrases
 
 classifier.learn('amazing, awesome movie!! Yeah!! Oh boy.', 'positive')
 classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
 
-//teach it a negative phrase
+// teach it a negative phrase
 
 classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
 
-//now ask it to categorize a document it has never seen before
+// now ask it to categorize a document it has never seen before
 
 classifier.categorize('awesome, cool, amazing!! Yay.')
 // => 'positive'
