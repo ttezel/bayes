@@ -1,7 +1,7 @@
-#`judge`: A text classifier for node.js
+#`bayes`: A Naive-Bayes classifier for node.js
 
 
-`judge` takes a document (piece of text), and it tells you the category that document belongs to.
+`bayes` takes a document (piece of text), and tells you what category that document belongs to.
 
 ##What can I use this for?
 
@@ -14,7 +14,7 @@ You can use this for categorizing any text content into any arbitrary set of **c
 ##Installing
 
 ```
-npm install judge
+npm install bayes
 ```
 
 ##Usage
@@ -22,9 +22,9 @@ npm install judge
 ###Using the Naive-Bayes Classifier
 
 ```javascript
-var judge = require('judge')
+var bayes = require('bayes')
 
-var classifier = judge.naiveBayes()
+var classifier = bayes()
 
 //teach it positive phrases
 
@@ -44,17 +44,17 @@ classifier.categorize('awesome, cool, amazing!! Yay.')
 
 ##API
 
-###`judge.naiveBayes()`
+###`bayes()`
 
 Returns an instance of a Naive-Bayes Classifier.
 
-###`classifier.learn(text, category)`
+###`.learn(text, category)`
 
 Teach your classifier what `category` the `text` belongs to. The more you teach your classifier, the more reliable it becomes. It will use what it has learned to identify new documents that it hasn't seen before.
 
-###`classifier.categorize(text)`
+###`.categorize(text)`
 
-Returns the category it thinks `text` belongs to. Its judgement is based on what you have taught it with `classifier.learn()`.
+Returns the `category` it thinks `text` belongs to. Its judgement is based on what you have taught it with **.learn()**.
 
 ## License 
 
