@@ -38,6 +38,12 @@ classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
 classifier.categorize('awesome, cool, amazing!! Yay.')
 // => 'positive'
 
+// serialize the classifier's state as a JSON string.
+var stateJson = classifier.toJson()
+
+// load the classifier back from its JSON representation.
+var revivedClassifier = bayes.fromJson(stateJson)
+
 ```
 
 ##API
@@ -54,7 +60,15 @@ Teach your classifier what `category` the `text` belongs to. The more you teach 
 
 Returns the `category` it thinks `text` belongs to. Its judgement is based on what you have taught it with **.learn()**.
 
-## License 
+###`.toJson()`
+
+Returns the JSON representation of a classifier.
+
+###`bayes.fromJson(jsonStr)`
+
+Returns a classifier instance from the JSON representation. Use this with the JSON representation obtained from `classifier.toJson()`
+
+## License
 
 (The MIT License)
 

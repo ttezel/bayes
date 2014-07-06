@@ -19,7 +19,7 @@ describe('naive bayes classifier', function () {
 
     //teach it a neutral phrase
     classifier.learn('I dont really know what to make of this.', 'neutral')
-    
+
     //now test it to see that it correctly categorizes a new document
     assert.equal(classifier.categorize('awesome, cool, amazing!! Yay.'), 'positive')
     done()
@@ -55,6 +55,32 @@ describe('naive bayes classifier', function () {
 
     //now test it to see that it correctly categorizes a new document
     assert.equal(classifier.categorize('Chinese Chinese Chinese Tokyo Japan'), 'chinese')
+
+    done()
+  })
+
+  it('serializes/deserializes its state as JSON correctly.', function (done) {
+    var classifier = bayes()
+
+    classifier.learn('Fun times were had by all', 'positive')
+    classifier.learn('sad dark rainy day in the cave', 'negative')
+
+    var jsonRepr = classifier.toJson()
+
+    // check serialized values
+    var state = JSON.parse(jsonRepr)
+
+    // ensure classifier's state values are all in the json representation
+    bayes.STATE_KEYS.forEach(function (k) {
+      assert.deepEqual(state[k], classifier[k])
+    })
+
+    var revivedClassifier = bayes.fromJson(jsonRepr)
+
+    // ensure the revived classifier's state is same as original state
+    bayes.STATE_KEYS.forEach(function (k) {
+      assert.deepEqual(revivedClassifier[k], classifier[k])
+    })
 
     done()
   })
