@@ -1,0 +1,9 @@
+{
+    "name": "bayes",
+
+    "main": "lib/naive_bayes.js",
+
+    "scripts": [
+        "lib/naive_bayes.js"
+    ]
+}
