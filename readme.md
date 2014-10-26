@@ -48,23 +48,33 @@ var revivedClassifier = bayes.fromJson(stateJson)
 
 ##API
 
-###`bayes()`
+###`var classifier = bayes([options])`
 
 Returns an instance of a Naive-Bayes Classifier.
 
-###`.learn(text, category)`
+Pass in an optional `options` object to configure the instance. If you specify a `tokenizer` function in `options`, it will be used as the instance's tokenizer. The default tokenizer removes punctuation and splits on spaces.
+
+Eg.
+
+```js
+var classifier = bayes({
+    tokenizer: function (text) { return text.split(' ')
+})
+```
+
+###`classifier.learn(text, category)`
 
 Teach your classifier what `category` the `text` belongs to. The more you teach your classifier, the more reliable it becomes. It will use what it has learned to identify new documents that it hasn't seen before.
 
-###`.categorize(text)`
+###`classifier.categorize(text)`
 
 Returns the `category` it thinks `text` belongs to. Its judgement is based on what you have taught it with **.learn()**.
 
-###`.toJson()`
+###`classifier.toJson()`
 
 Returns the JSON representation of a classifier.
 
-###`bayes.fromJson(jsonStr)`
+###`var classifier = bayes.fromJson(jsonStr)`
 
 Returns a classifier instance from the JSON representation. Use this with the JSON representation obtained from `classifier.toJson()`
 

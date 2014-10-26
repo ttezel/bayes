@@ -3,8 +3,80 @@ var assert = require('assert')
   , path = require('path')
   , bayes = require('../lib/naive_bayes')
 
-describe('naive bayes classifier', function () {
+describe('bayes() init', function () {
+  it('valid options (falsey or with an object) do not raise Errors', function () {
+    var validOptionsCases = [ undefined, {} ];
 
+    validOptionsCases.forEach(function (validOptions) {
+      var classifier = bayes(validOptions)
+      assert.deepEqual(classifier.options, {})
+    })
+  })
+
+  it('invalid options (truthy and not object) raise TypeError during init', function () {
+    var invalidOptionsCases = [ null, 0, 'a', [] ];
+
+    invalidOptionsCases.forEach(function (invalidOptions) {
+      assert.throws(function () { bayes(invalidOptions) }, Error)
+      // check that it's a TypeError
+      assert.throws(function () { bayes(invalidOptions) }, TypeError)
+    })
+  })
+})
+
+describe('bayes using custom tokenizer', function () {
+  it('uses custom tokenization function if one is provided in `options`.', function () {
+    var splitOnChar = function (text) {
+      return text.split('')
+    }
+
+    var classifier = bayes({ tokenizer: splitOnChar })
+
+    classifier.learn('abcd', 'happy')
+
+    // check classifier's state is as expected
+    assert.equal(classifier.totalDocuments, 1)
+    assert.equal(classifier.docCount.happy, 1)
+    assert.deepEqual(classifier.vocabulary, { a: 1, b: 1, c: 1, d: 1 })
+    assert.equal(classifier.vocabularySize, 4)
+    assert.equal(classifier.wordCount.happy, 4)
+    assert.equal(classifier.wordFrequencyCount.happy.a, 1)
+    assert.equal(classifier.wordFrequencyCount.happy.b, 1)
+    assert.equal(classifier.wordFrequencyCount.happy.c, 1)
+    assert.equal(classifier.wordFrequencyCount.happy.d, 1)
+    assert.deepEqual(classifier.categories, { happy: 1 })
+  })
+})
+
+describe('bayes serializing/deserializing its state', function () {
+  it('serializes/deserializes its state as JSON correctly.', function (done) {
+      var classifier = bayes()
+
+      classifier.learn('Fun times were had by all', 'positive')
+      classifier.learn('sad dark rainy day in the cave', 'negative')
+
+      var jsonRepr = classifier.toJson()
+
+      // check serialized values
+      var state = JSON.parse(jsonRepr)
+
+      // ensure classifier's state values are all in the json representation
+      bayes.STATE_KEYS.forEach(function (k) {
+        assert.deepEqual(state[k], classifier[k])
+      })
+
+      var revivedClassifier = bayes.fromJson(jsonRepr)
+
+      // ensure the revived classifier's state is same as original state
+      bayes.STATE_KEYS.forEach(function (k) {
+        assert.deepEqual(revivedClassifier[k], classifier[k])
+      })
+
+      done()
+    })
+})
+
+describe('bayes .learn() correctness', function () {
   //sentiment analysis test
   it('categorizes correctly for `positive` and `negative` categories', function (done) {
 
@@ -58,31 +130,5 @@ describe('naive bayes classifier', function () {
 
     done()
   })
-
-  it('serializes/deserializes its state as JSON correctly.', function (done) {
-    var classifier = bayes()
-
-    classifier.learn('Fun times were had by all', 'positive')
-    classifier.learn('sad dark rainy day in the cave', 'negative')
-
-    var jsonRepr = classifier.toJson()
-
-    // check serialized values
-    var state = JSON.parse(jsonRepr)
-
-    // ensure classifier's state values are all in the json representation
-    bayes.STATE_KEYS.forEach(function (k) {
-      assert.deepEqual(state[k], classifier[k])
-    })
-
-    var revivedClassifier = bayes.fromJson(jsonRepr)
-
-    // ensure the revived classifier's state is same as original state
-    bayes.STATE_KEYS.forEach(function (k) {
-      assert.deepEqual(revivedClassifier[k], classifier[k])
-    })
-
-    done()
-  })
-
 })
+
