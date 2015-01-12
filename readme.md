@@ -52,7 +52,7 @@ var revivedClassifier = bayes.fromJson(stateJson)
 
 Returns an instance of a Naive-Bayes Classifier.
 
-Pass in an optional `options` object to configure the instance. If you specify a `tokenizer` function in `options`, it will be used as the instance's tokenizer. It receives a (string) `text` argument - the strings you pass in via `.learn()` and `.categorize()`. It must return an array of tokens. The default tokenizer removes punctuation and splits on spaces.
+Pass in an optional `options` object to configure the instance. If you specify a `tokenizer` function in `options`, it will be used as the instance's tokenizer. It receives a (string) `text` argument - this is the string value that is passed in by you when you call `.learn()` or `.categorize()`. It must return an array of tokens. The default tokenizer removes punctuation and splits on spaces.
 
 Eg.
 
