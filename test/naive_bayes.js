@@ -1,6 +1,4 @@
 var assert = require('assert')
-  , fs = require('fs')
-  , path = require('path')
   , bayes = require('../lib/naive_bayes')
 
 describe('bayes() init', function () {
@@ -131,4 +129,3 @@ describe('bayes .learn() correctness', function () {
     done()
   })
 })
-
