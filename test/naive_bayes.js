@@ -130,5 +130,27 @@ describe('bayes .learn() correctness', function () {
 
     done()
   })
+
+  it('correctly tokenizes cyrlic characters', function (done) {
+    var classifier = bayes()
+
+    classifier.learn('Надежда за', 'a')
+    classifier.learn('Надежда за обич еп.36 Тест', 'b')
+    classifier.learn('Надежда за обич еп.36 Тест', 'b')
+
+    var aFreqCount = classifier.wordFrequencyCount.a
+    assert.equal(aFreqCount['Надежда'], 1)
+    assert.equal(aFreqCount['за'], 1)
+
+    var bFreqCount = classifier.wordFrequencyCount.b
+    assert.equal(bFreqCount['Надежда'], 2)
+    assert.equal(bFreqCount['за'], 2)
+    assert.equal(bFreqCount['обич'], 2)
+    assert.equal(bFreqCount['еп'], 2)
+    assert.equal(bFreqCount['36'], 2)
+    assert.equal(bFreqCount['Тест'], 2)
+
+    done()
+  })
 })
 
