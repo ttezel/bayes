@@ -1,7 +1,7 @@
 {
     "name": "bayes"
   , "description": "Naive Bayes Classifier for node.js"
-  , "version": "0.0.4"
+  , "version": "0.0.5"
   , "author": "Tolga Tezel"
   , "keywords": [ "naive", "bayes", "categorize", "classify", "classifier" ]
   , "dependencies": {
