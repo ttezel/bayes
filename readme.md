@@ -70,6 +70,10 @@ Teach your classifier what `category` the `text` belongs to. The more you teach 
 
 Returns the `category` it thinks `text` belongs to. Its judgement is based on what you have taught it with **.learn()**.
 
+###`classifier.probabilities(text)`
+
+Returns an array of `{ value, category }` objects with probability calculated for each category. Its judgement is based on what you have taught it with **.learn()**.
+
 ###`classifier.toJson()`
 
 Returns the JSON representation of a classifier.
