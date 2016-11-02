@@ -74,6 +74,24 @@ describe('bayes serializing/deserializing its state', function () {
 
       done()
     })
+    
+  it('serializes/deserializes its state as an Object correctly.', function (done) {
+      var classifier = bayes()
+
+      classifier.learn('Fun times were had by all', 'positive')
+      classifier.learn('sad dark rainy day in the cave', 'negative')
+
+      var jsonRepr = classifier.toJsonObject()
+
+      var revivedClassifier = bayes.fromJson(jsonRepr)
+
+      // ensure the revived classifier's state is same as original state
+      bayes.STATE_KEYS.forEach(function (k) {
+        assert.deepEqual(revivedClassifier[k], classifier[k])
+      })
+
+      done()
+    })
 })
 
 describe('bayes .learn() correctness', function () {
