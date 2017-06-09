@@ -1,9 +1,9 @@
-#`bayes`: A Naive-Bayes classifier for node.js
+# `bayes`: A Naive-Bayes classifier for node.js
 
 
 `bayes` takes a document (piece of text), and tells you what category that document belongs to.
 
-##What can I use this for?
+## What can I use this for?
 
 You can use this for categorizing any text content into any arbitrary set of **categories**. For example:
 
@@ -11,13 +11,13 @@ You can use this for categorizing any text content into any arbitrary set of **c
 - is a news article about **technology**, **politics**, or **sports** ?
 - is a piece of text expressing **positive** emotions, or **negative** emotions?
 
-##Installing
+## Installing
 
 ```
 npm install bayes
 ```
 
-##Usage
+## Usage
 
 ```javascript
 var bayes = require('bayes')
@@ -46,9 +46,9 @@ var revivedClassifier = bayes.fromJson(stateJson)
 
 ```
 
-##API
+## API
 
-###`var classifier = bayes([options])`
+### `var classifier = bayes([options])`
 
 Returns an instance of a Naive-Bayes Classifier.
 
@@ -62,19 +62,19 @@ var classifier = bayes({
 })
 ```
 
-###`classifier.learn(text, category)`
+### `classifier.learn(text, category)`
 
 Teach your classifier what `category` the `text` belongs to. The more you teach your classifier, the more reliable it becomes. It will use what it has learned to identify new documents that it hasn't seen before.
 
-###`classifier.categorize(text)`
+### `classifier.categorize(text)`
 
 Returns the `category` it thinks `text` belongs to. Its judgement is based on what you have taught it with **.learn()**.
 
-###`classifier.toJson()`
+### `classifier.toJson()`
 
 Returns the JSON representation of a classifier.
 
-###`var classifier = bayes.fromJson(jsonStr)`
+### `var classifier = bayes.fromJson(jsonStr)`
 
 Returns a classifier instance from the JSON representation. Use this with the JSON representation obtained from `classifier.toJson()`
 
