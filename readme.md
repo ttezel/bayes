@@ -72,11 +72,15 @@ Returns the `category` it thinks `text` belongs to. Its judgement is based on wh
 
 ### `classifier.toJson()`
 
-Returns the JSON representation of a classifier.
+Returns the JSON representation of a classifier. This is the same as `JSON.stringify(classifier.toJsonObject())`.
+
+###`classifier.toJsonObject()`
+
+Returns a JSON-friendly representation of the classifier as an `object`.
 
 ### `var classifier = bayes.fromJson(jsonStr)`
 
-Returns a classifier instance from the JSON representation. Use this with the JSON representation obtained from `classifier.toJson()`
+Returns a classifier instance from the JSON representation. Use this with the JSON representation obtained from `classifier.toJson()` or `classifier.toJsonObject()`
 
 ## License
 
