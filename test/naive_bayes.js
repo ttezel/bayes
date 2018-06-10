@@ -74,6 +74,30 @@ describe('bayes serializing/deserializing its state', function () {
 
       done()
     })
+
+  it('allows de-serializing an empty state', function (done) {
+    var classifier = bayes();
+    var jsonRepr = classifier.toJson()
+    bayes.fromJson(jsonRepr);
+    done();
+  });
+
+  it('fails on an missing fields', function (done) {
+    var classifier = bayes();
+    var jsonRepr = classifier.toJson();
+
+    jsonRepr = JSON.parse(jsonRepr);
+    delete jsonRepr.totalDocuments;
+    jsonRepr = JSON.stringify(jsonRepr);
+
+    try {
+      bayes.fromJson(jsonRepr);
+    } catch (e) {
+      return done();
+    }
+
+    done(new Error('should have thrown'));
+  })
 })
 
 describe('bayes .learn() correctness', function () {
