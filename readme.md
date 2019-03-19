@@ -26,16 +26,16 @@ var classifier = bayes()
 
 // teach it positive phrases
 
-classifier.learn('amazing, awesome movie!! Yeah!! Oh boy.', 'positive')
-classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
+await classifier.learn('amazing, awesome movie!! Yeah!! Oh boy.', 'positive')
+await classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
 
 // teach it a negative phrase
 
-classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
+await classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
 
 // now ask it to categorize a document it has never seen before
 
-classifier.categorize('awesome, cool, amazing!! Yay.')
+await classifier.categorize('awesome, cool, amazing!! Yay.')
 // => 'positive'
 
 // serialize the classifier's state as a JSON string.
@@ -60,6 +60,10 @@ Eg.
 var classifier = bayes({
     tokenizer: function (text) { return text.split(' ') }
 })
+
+var classifier2 = bayes({
+    tokenizer: async function (body) { return request(segmentService, { body }) }
+})
 ```
 
 ### `classifier.learn(text, category)`
@@ -68,7 +72,7 @@ Teach your classifier what `category` the `text` belongs to. The more you teach 
 
 ### `classifier.categorize(text)`
 
-Returns the `category` it thinks `text` belongs to. Its judgement is based on what you have taught it with **.learn()**.
+Returns the `category` (with promise) it thinks `text` belongs to. Its judgement is based on what you have taught it with **.learn()**.
 
 ### `classifier.toJson()`
 
