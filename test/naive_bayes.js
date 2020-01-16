@@ -24,15 +24,15 @@ describe('bayes() init', function () {
   })
 })
 
-describe('bayes using custom tokenizer', function () {
-  it('uses custom tokenization function if one is provided in `options`.', function () {
+describe('bayes using custom tokenizer', async function () {
+  it('uses custom tokenization function if one is provided in `options`.', async function () {
     var splitOnChar = function (text) {
       return text.split('')
     }
 
     var classifier = bayes({ tokenizer: splitOnChar })
 
-    classifier.learn('abcd', 'happy')
+    await classifier.learn('abcd', 'happy')
 
     // check classifier's state is as expected
     assert.equal(classifier.totalDocuments, 1)
@@ -49,11 +49,11 @@ describe('bayes using custom tokenizer', function () {
 })
 
 describe('bayes serializing/deserializing its state', function () {
-  it('serializes/deserializes its state as JSON correctly.', function (done) {
+  it('serializes/deserializes its state as JSON correctly.', async function () {
       var classifier = bayes()
 
-      classifier.learn('Fun times were had by all', 'positive')
-      classifier.learn('sad dark rainy day in the cave', 'negative')
+      await classifier.learn('Fun times were had by all', 'positive')
+      await classifier.learn('sad dark rainy day in the cave', 'negative')
 
       var jsonRepr = classifier.toJson()
 
@@ -72,7 +72,6 @@ describe('bayes serializing/deserializing its state', function () {
         assert.deepEqual(revivedClassifier[k], classifier[k])
       })
 
-      done()
     })
 
   it('allows de-serializing an empty state', function (done) {
@@ -102,37 +101,36 @@ describe('bayes serializing/deserializing its state', function () {
 
 describe('bayes .learn() correctness', function () {
   //sentiment analysis test
-  it('categorizes correctly for `positive` and `negative` categories', function (done) {
+  it('categorizes correctly for `positive` and `negative` categories', async function () {
 
     var classifier = bayes()
 
     //teach it positive phrases
-    classifier.learn('amazing, awesome movie!! Yeah!!', 'positive')
-    classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
+    await classifier.learn('amazing, awesome movie!! Yeah!!', 'positive')
+    await classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
 
     //teach it a negative phrase
-    classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
+    await classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
 
     //teach it a neutral phrase
-    classifier.learn('I dont really know what to make of this.', 'neutral')
+    await classifier.learn('I dont really know what to make of this.', 'neutral')
 
     //now test it to see that it correctly categorizes a new document
-    assert.equal(classifier.categorize('awesome, cool, amazing!! Yay.'), 'positive')
-    done()
+    assert.equal(await classifier.categorize('awesome, cool, amazing!! Yay.'), 'positive')
   })
 
   //topic analysis test
-  it('categorizes correctly for `chinese` and `japanese` categories', function (done) {
+  it('categorizes correctly for `chinese` and `japanese` categories', async function () {
 
     var classifier = bayes()
 
     //teach it how to identify the `chinese` category
-    classifier.learn('Chinese Beijing Chinese', 'chinese')
-    classifier.learn('Chinese Chinese Shanghai', 'chinese')
-    classifier.learn('Chinese Macao', 'chinese')
+    await classifier.learn('Chinese Beijing Chinese', 'chinese')
+    await classifier.learn('Chinese Chinese Shanghai', 'chinese')
+    await classifier.learn('Chinese Macao', 'chinese')
 
     //teach it how to identify the `japanese` category
-    classifier.learn('Tokyo Japan Chinese', 'japanese')
+    await classifier.learn('Tokyo Japan Chinese', 'japanese')
 
     //make sure it learned the `chinese` category correctly
     var chineseFrequencyCount = classifier.wordFrequencyCount.chinese
@@ -150,17 +148,15 @@ describe('bayes .learn() correctness', function () {
     assert.equal(japaneseFrequencyCount['Chinese'], 1)
 
     //now test it to see that it correctly categorizes a new document
-    assert.equal(classifier.categorize('Chinese Chinese Chinese Tokyo Japan'), 'chinese')
-
-    done()
+    assert.equal(await classifier.categorize('Chinese Chinese Chinese Tokyo Japan'), 'chinese')
   })
 
-  it('correctly tokenizes cyrlic characters', function (done) {
+  it('correctly tokenizes cyrlic characters', async function () {
     var classifier = bayes()
 
-    classifier.learn('Надежда за', 'a')
-    classifier.learn('Надежда за обич еп.36 Тест', 'b')
-    classifier.learn('Надежда за обич еп.36 Тест', 'b')
+    await classifier.learn('Надежда за', 'a')
+    await classifier.learn('Надежда за обич еп.36 Тест', 'b')
+    await classifier.learn('Надежда за обич еп.36 Тест', 'b')
 
     var aFreqCount = classifier.wordFrequencyCount.a
     assert.equal(aFreqCount['Надежда'], 1)
@@ -173,8 +169,6 @@ describe('bayes .learn() correctness', function () {
     assert.equal(bFreqCount['еп'], 2)
     assert.equal(bFreqCount['36'], 2)
     assert.equal(bFreqCount['Тест'], 2)
-
-    done()
   })
 })
 
