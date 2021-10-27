@@ -48,6 +48,48 @@ describe('bayes using custom tokenizer', async function () {
   })
 })
 
+describe('bayes using "allowNoMatch" flag', async function () {
+
+  it('returns no-match value when "allowNoMatch" flag is provided in `options`.', async function () {
+
+    var classifier = bayes({allowNoMatch: true})
+
+    //teach it positive phrases
+    await classifier.learn('amazing, awesome movie!! Yeah!!', 'positive')
+    await classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
+
+    //teach it a negative phrase
+    await classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
+
+    //teach it a neutral phrase
+    await classifier.learn('I dont really know what to make of this.', 'neutral')
+
+    //now test it to see that it returns no result
+    assert.equal(await classifier.categorize('notcategorizeable'), undefined);
+
+  })
+
+  it('dose not returns no-match value when "allowNoMatch" flag is not provided in `options` (for backcomp).', async function () {
+
+    var classifier = bayes()
+
+    //teach it positive phrases
+    await classifier.learn('amazing, awesome movie!! Yeah!!', 'positive')
+    await classifier.learn('Sweet, this is incredibly, amazing, perfect, great!!', 'positive')
+
+    //teach it a negative phrase
+    await classifier.learn('terrible, shitty thing. Damn. Sucks!!', 'negative')
+
+    //teach it a neutral phrase
+    await classifier.learn('I dont really know what to make of this.', 'neutral')
+
+    //now test it to see that it returns the first option just like it always used to
+    assert.equal(await classifier.categorize('notcategorizeable'), 'positive')
+
+  })
+
+})
+
 describe('bayes serializing/deserializing its state', function () {
   it('serializes/deserializes its state as JSON correctly.', async function () {
       var classifier = bayes()
