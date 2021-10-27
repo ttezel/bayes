@@ -54,11 +54,15 @@ Returns an instance of a Naive-Bayes Classifier.
 
 Pass in an optional `options` object to configure the instance. If you specify a `tokenizer` function in `options`, it will be used as the instance's tokenizer. It receives a (string) `text` argument - this is the string value that is passed in by you when you call `.learn()` or `.categorize()`. It must return an array of tokens. The default tokenizer removes punctuation and splits on spaces.
 
+if `allowNoMatch` is specified with the value `true` (defaults to `false`) in case of no-match to any token in any of the categories, and `undefined` value will be returned.
+By default, in case of a no-match (as described above) the first category will be returned.
+
 Eg.
 
 ```js
 var classifier = bayes({
-    tokenizer: function (text) { return text.split(' ') }
+    tokenizer: function (text) { return text.split(' ') },
+    allowNoMatch: true
 })
 
 var classifier2 = bayes({
